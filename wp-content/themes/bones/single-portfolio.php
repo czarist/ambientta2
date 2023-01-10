@@ -41,16 +41,22 @@ $terms = wp_get_object_terms($post->ID, 'categoria');
 
 							<div class="row mt-5">
 								<div class="col-12 text-center ">
-									<div class="flex flex-wrap gap-5 justify-center max-w-5xl mx-auto px-6">
-										<a data-fancybox="gallery" href="https://lipsum.app/id/46/1600x1200">
-											<img class="rounded" src="https://lipsum.app/id/46/200x150" />
-										</a>
-										<a data-fancybox="gallery" href="https://lipsum.app/id/47/1600x1200">
-											<img class="rounded" src="https://lipsum.app/id/47/200x150" />
-										</a>
-										<a data-fancybox="gallery" href="https://lipsum.app/id/51/1600x1200">
-											<img class="rounded" src="https://lipsum.app/id/51/200x150" />
-										</a>
+									<div class="row pb-5">
+										<?php
+										if (have_rows('galerias', $post->ID)) :
+											while (have_rows('galerias', $post->ID)) : the_row();
+												$sub_value = get_sub_field('imagem_portfolio', $post->ID);
+										?>
+												<div class="col-12 col-xl-3 p-1">
+													<a data-fancybox="gallery" href="<?= $sub_value ?>">
+														<div class="box-portfolio" style="background-image: url('<?= $sub_value ?>') ;"></div>
+														<!-- <img class="rounded" src="<?= $sub_value ?>" /> -->
+													</a>
+												</div>
+										<?php
+											endwhile;
+										endif;
+										?>
 									</div>
 								</div>
 							</div>

@@ -63,9 +63,7 @@ $image = get_the_post_thumbnail_url(get_the_ID(), 'full');
 
 											foreach ($categorias as $categoria) {
 											?>
-
 												<h6 class="select_category" onclick="change_category('<?= $categoria->name; ?>', this)"><?= $categoria->name; ?></h6>
-
 											<?php
 											}
 											?>
@@ -102,6 +100,9 @@ $image = get_the_post_thumbnail_url(get_the_ID(), 'full');
 										<?php
 										endwhile;
 										?>
+										<div id="fakeLoadMore" class="col-12 d-flex mt-2 mb-2 justify-content-center align-items-center">
+
+										</div>
 									</div>
 								</div>
 							</section>
@@ -200,12 +201,29 @@ $image = get_the_post_thumbnail_url(get_the_ID(), 'full');
 		</main>
 	</div>
 </div>
-
 <script type="text/javascript">
-	function change_category(category, element) {
+	
+	const select_category = document.getElementsByClassName('select_category');
+	const categoryClass = document.getElementsByClassName('categoryClass');
+	const fakeLoadMore = document.getElementById('fakeLoadMore');
+	const loadmore = document.getElementById('loadmore');
 
-		const select_category = document.getElementsByClassName('select_category');
-		const categoryClass = document.getElementsByClassName('categoryClass');
+	if (categoryClass.length > 12) {
+		fakeLoadMore.innerHTML = `<div id="loadmore" onclick="loadmorePress()"><span>Ver Mais</span></div>`;
+	}
+
+	for (let a = 12; categoryClass.length > a; a++) {
+		categoryClass[a].classList.add('d-none');
+	}
+
+	function loadmorePress() {
+		for (let a = 0; categoryClass.length > a; a++) {
+			categoryClass[a].classList.remove('d-none');
+		}
+		fakeLoadMore.innerHTML = "";
+	}
+
+	function change_category(category, element) {
 
 		for (let a = 0; categoryClass.length > a; a++) {
 			if (!categoryClass[a].classList.contains(category)) {
@@ -230,6 +248,7 @@ $image = get_the_post_thumbnail_url(get_the_ID(), 'full');
 			behavior: 'smooth'
 		});
 
+		fakeLoadMore.innerHTML = "";
 		element.classList.add('activated');
 	}
 </script>

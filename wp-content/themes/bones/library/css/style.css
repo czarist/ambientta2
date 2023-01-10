@@ -305,6 +305,18 @@ div#theWhats {
     margin-right: 1pc;
 }
 
+div#loadmore {
+    background-color: #DA6A5E !important;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 15px;
+    color: white;
+    font-weight: 900;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
 
 /* LINKS */
 
