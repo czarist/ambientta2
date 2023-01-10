@@ -47,24 +47,12 @@ $image = get_the_post_thumbnail_url(get_the_ID(), 'full');
 
 							<section id="PORTFOLIO" class="pt-5 pb-5" style="background-color: #F2F2F2;">
 
-								<script type="text/javascript">
-									function change_category(category, element) {
-										const select_category = document.getElementsByClassName('select_category');
-
-										for (let i = 0; select_category.length > i; i++) {
-											select_category[i].classList.remove('activated');
-										}
-
-										element.classList.add('activated');
-									}
-								</script>
-								
 								<div class="container">
 									<div class="row">
 										<div class="col-12">
 											<?= get_field('texto_portfolio', 5) ?>
 										</div>
-										<div class="col-12 mt-5 d-flex justify-content-around">
+										<div class="col-12 mt-5 d-flex justify-content-around flex-column flex-xl-row">
 											<h6 class="select_category activated" onclick="change_category('TODOS', this)">TODOS</h6>
 
 											<?php
@@ -83,7 +71,7 @@ $image = get_the_post_thumbnail_url(get_the_ID(), 'full');
 											?>
 										</div>
 									</div>
-									<div class="row mt-5">
+									<div id="blocos_portfolio" class="row mt-5">
 										<?php
 										$args = [
 											'post_type' => 'portfolio',
@@ -100,9 +88,9 @@ $image = get_the_post_thumbnail_url(get_the_ID(), 'full');
 
 
 										?>
-											<div class="col-12 col-xl-3 p-1 TODOS <?php foreach ($terms as $term) {
-																						echo $term->name . ' ';
-																					} ?>">
+											<div class="col-12 col-xl-3 p-1 categoryClass TODOS <?php foreach ($terms as $term) {
+																									echo $term->name . ' ';
+																								} ?>">
 												<div class="box-portfolio" onclick="window.open('<?= get_the_permalink() ?>')" style="background-image: url('<?= $image ?>');">
 													<div class="intern-content">
 														<p><?= the_title() ?></p>
@@ -212,5 +200,38 @@ $image = get_the_post_thumbnail_url(get_the_ID(), 'full');
 		</main>
 	</div>
 </div>
+
+<script type="text/javascript">
+	function change_category(category, element) {
+
+		const select_category = document.getElementsByClassName('select_category');
+		const categoryClass = document.getElementsByClassName('categoryClass');
+
+		for (let a = 0; categoryClass.length > a; a++) {
+			if (!categoryClass[a].classList.contains(category)) {
+				categoryClass[a].classList.add('d-none');
+				categoryClass[a].classList.remove('d-block');
+			} else {
+				categoryClass[a].classList.remove('d-none');
+				categoryClass[a].classList.add('d-block');
+			}
+		}
+
+		for (let i = 0; select_category.length > i; i++) {
+			select_category[i].classList.remove('activated');
+		}
+
+		var target = document.getElementById("blocos_portfolio");
+		var targetOffset = target.offsetTop;
+
+		window.scroll({
+			top: targetOffset - 100,
+			left: 0,
+			behavior: 'smooth'
+		});
+
+		element.classList.add('activated');
+	}
+</script>
 
 <?php get_footer(); ?>

@@ -2625,6 +2625,10 @@ form#form-contato textarea {
     }
 }
 
+img.rounded {
+    width: 345px;
+    max-width: 100%;
+}
 
 /* LARGE VIEWING SIZE */
 
@@ -2634,6 +2638,14 @@ form#form-contato textarea {
 /*Ipad*/
 
 @media only screen and (max-width: 1024px) {
+
+    .select_category {
+        border: 1px solid;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 5px;
+    }
+
     #logo img {
         left: 0;
         top: 0;

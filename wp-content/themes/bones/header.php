@@ -17,6 +17,11 @@
 	<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
 	<?php wp_head(); ?>
 
+	<!-- fancybox -->
+
+	<script src="<?php echo get_template_directory_uri(); ?>/library/fancybox/fancybox.umd.js"></script>
+	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/library/fancybox/fancybox.css" />
+
 	<!-- bootstrap -->
 	<link href="<?php echo get_template_directory_uri(); ?>/library/bootstrap4.1.1/css/bootstrap.min.css" rel="stylesheet" />
 	<script src="<?php echo get_template_directory_uri(); ?>/library/bootstrap4.1.1/js/bootstrap.min.js"></script>
