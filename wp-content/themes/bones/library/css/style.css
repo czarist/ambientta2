@@ -1437,6 +1437,53 @@ section#METODOLOGIA {
     overflow: hidden;
 }
 
+.box-portfolio {
+    height: 180px;
+    width: 100%;
+    max-width: 100%;
+    background-position: center;
+    background-size: cover;
+}
+
+.box-portfolio:hover {
+    cursor: pointer;
+}
+
+.intern-content {
+    background-color: #da6a5ecc;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    opacity: 0;
+    transition: 0.5s;
+    font-size: 13px;
+    text-align: center;
+    padding: 5px;
+}
+
+.intern-content:hover {
+    transition: 0.5s;
+    opacity: 1;
+}
+
+.select_category {
+    opacity: 0.4;
+    transition: 0.5s;
+}
+
+.select_category:hover {
+    transition: 0.5s;
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.select_category.activated {
+    opacity: 1;
+}
+
 .blocos-quem-somos {
     height: auto;
     min-height: 350px;

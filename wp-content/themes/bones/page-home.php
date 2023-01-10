@@ -46,11 +46,74 @@ $image = get_the_post_thumbnail_url(get_the_ID(), 'full');
 							</section>
 
 							<section id="PORTFOLIO" class="pt-5 pb-5" style="background-color: #F2F2F2;">
+
+								<script type="text/javascript">
+									function change_category(category, element) {
+										const select_category = document.getElementsByClassName('select_category');
+
+										for (let i = 0; select_category.length > i; i++) {
+											select_category[i].classList.remove('activated');
+										}
+
+										element.classList.add('activated');
+									}
+								</script>
+								
 								<div class="container">
 									<div class="row">
 										<div class="col-12">
 											<?= get_field('texto_portfolio', 5) ?>
 										</div>
+										<div class="col-12 mt-5 d-flex justify-content-around">
+											<h6 class="select_category activated" onclick="change_category('TODOS', this)">TODOS</h6>
+
+											<?php
+											$categorias = get_terms(array(
+												'taxonomy' => 'categoria',
+												'hide_empty' => false,
+											));
+
+											foreach ($categorias as $categoria) {
+											?>
+
+												<h6 class="select_category" onclick="change_category('<?= $categoria->name; ?>', this)"><?= $categoria->name; ?></h6>
+
+											<?php
+											}
+											?>
+										</div>
+									</div>
+									<div class="row mt-5">
+										<?php
+										$args = [
+											'post_type' => 'portfolio',
+											'order'     => 'ASC',
+											'posts_per_page' => -1
+										];
+
+										$query = new WP_Query($args);
+										while ($query->have_posts()) :
+
+											$query->the_post();
+											$image = wp_get_attachment_url(get_post_thumbnail_id($post->ID));
+											$terms = wp_get_object_terms($post->ID, 'categoria');
+
+
+										?>
+											<div class="col-12 col-xl-3 p-1 TODOS <?php foreach ($terms as $term) {
+																						echo $term->name . ' ';
+																					} ?>">
+												<div class="box-portfolio" onclick="window.open('<?= get_the_permalink() ?>')" style="background-image: url('<?= $image ?>');">
+													<div class="intern-content">
+														<p><?= the_title() ?></p>
+													</div>
+												</div>
+
+											</div>
+
+										<?php
+										endwhile;
+										?>
 									</div>
 								</div>
 							</section>
