@@ -53,7 +53,7 @@ $image = get_the_post_thumbnail_url(get_the_ID(), 'full');
 											<?= get_field('texto_portfolio', 5) ?>
 										</div>
 										<div class="col-12 mt-5 d-flex justify-content-around flex-column flex-xl-row">
-											<h6 class="select_category activated" onclick="change_category('TODOS', this)">TODOS</h6>
+											<h6 class="select_category activated" onclick="change_category('PROJETOS', this)">PROJETOS</h6>
 
 											<?php
 											$categorias = get_terms(array(
@@ -86,18 +86,37 @@ $image = get_the_post_thumbnail_url(get_the_ID(), 'full');
 
 
 										?>
-											<div class="col-12 col-xl-3 p-1 categoryClass TODOS <?php foreach ($terms as $term) {
-																									echo $term->name . ' ';
-																								} ?>">
+											<div class="col-12 col-xl-3 p-1 categoryClass PROJETOS">
 												<div class="box-portfolio" onclick="window.open('<?= get_the_permalink() ?>')" style="background-image: url('<?= $image ?>');">
 													<div class="intern-content">
 														<p><?= the_title() ?></p>
 													</div>
 												</div>
-
 											</div>
 
+											<?php
+										endwhile;
+										while ($query->have_posts()) :
+
+											$query->the_post();
+											if (have_rows('galerias', $post->ID)) :
+												while (have_rows('galerias', $post->ID)) : the_row();
+													$imagem_portfolio = get_sub_field('imagem_portfolio', $post->ID);
+													$tag_imagem = get_sub_field('tag_imagem', $post->ID);
+
+											?>
+
+													<div class="col-12 col-xl-3 p-1 categoryClass <?= $tag_imagem ?>">
+														<div class="box-portfolio" onclick="window.open('<?= get_the_permalink() ?>')" style="background-image: url('<?= $imagem_portfolio ?>');">
+															<div class="intern-content">
+																<p><?= the_title() ?></p>
+															</div>
+														</div>
+													</div>
+
 										<?php
+												endwhile;
+											endif;
 										endwhile;
 										?>
 										<div id="fakeLoadMore" class="col-12 d-flex mt-2 mb-2 justify-content-center align-items-center">
@@ -202,7 +221,6 @@ $image = get_the_post_thumbnail_url(get_the_ID(), 'full');
 	</div>
 </div>
 <script type="text/javascript">
-	
 	const select_category = document.getElementsByClassName('select_category');
 	const categoryClass = document.getElementsByClassName('categoryClass');
 	const fakeLoadMore = document.getElementById('fakeLoadMore');
