@@ -17,6 +17,7 @@ $terms = wp_get_object_terms($post->ID, 'categoria');
 					<h1 class="">
 						<?= the_title() ?>
 					</h1>
+					<p> <?= the_content() ?></p>
 					<h6>
 						PUBLICADO EM: <?php foreach ($terms as $term) {
 											echo $term->name . ', ';
